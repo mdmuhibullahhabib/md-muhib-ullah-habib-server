@@ -37,14 +37,14 @@ async function run() {
         })
 
         app.get('/message', async (req, res) => {
-            const result = await reviewsCollection.find().toArray()
+            const result = await messageCollection.find().toArray()
             res.send(result)
         })
 
         app.delete('/message/:id', async (req, res) => {
             const id = req.params.id
             const query = { _id: new ObjectId(id) }
-            const result = await appointmentCollection.deleteOne(query)
+            const result = await messageCollection.deleteOne(message)
             res.send(result)
         })
 
