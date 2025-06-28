@@ -26,38 +26,13 @@ async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         await client.connect()
-        const appointmentCollection = client.db('hashi').collection('appointment')
-        const reviewsCollection = client.db('hashi').collection('reviews')
+        const messageCollection = client.db('md-muhib-ullah-habib').collection('message')
 
-        // Jwt related api
-        app.post('/jwt', async (req, res) => {
-            const user = req.body
-            const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '1hr'
-            })
-            res.send({ token })
-        })
 
-        // middleware
-        const verifyToken = (req, res, next) => {
-            // console.log('inside token', req.headers.authorization)
-            if (!req.headers.authorization) {
-                return res.status(401).send({ message: 'forbidded access' })
-            }
-            const token = req.headers.authorization.split(' ')[1]
-            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-                if (err) {
-                    return res.status(401).send({ message: 'forbidden access' })
-                }
-                req.decoded = decoded
-                next()
-            })
-        }
 
-        // reviews related api
         app.post('/message', async (req, res) => {
-            const story = req.body
-            const result = await reviewsCollection.insertOne(story)
+            const message = req.body
+            const result = await messageCollection.insertOne(message)
             res.send(result)
         })
 
