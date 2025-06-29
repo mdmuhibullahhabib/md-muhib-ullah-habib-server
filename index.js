@@ -27,6 +27,8 @@ async function run() {
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect()
         const messageCollection = client.db('md-muhib-ullah-habib').collection('message')
+        const projectsCollection = client.db('md-muhib-ullah-habib').collection('projects')
+        const techsCollection = client.db('md-muhib-ullah-habib').collection('techs')
 
 
         app.post('/message', async (req, res) => {
@@ -35,8 +37,13 @@ async function run() {
             res.send(result)
         })
 
-        app.get('/message', async (req, res) => {
-            const result = await messageCollection.find().toArray()
+        app.get('/projects', async (req, res) => {
+            const result = await projectsCollection.find().toArray()
+            res.send(result)
+        })
+
+        app.get('/techs', async (req, res) => {
+            const result = await techsCollection.find().toArray()
             res.send(result)
         })
 
