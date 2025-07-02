@@ -49,7 +49,7 @@ async function run() {
         })
 
         app.get('/featured', async (req, res) => {
-            const result = await eaturedCollection.find().toArray()
+            const result = await featuredCollection.find().toArray()
             res.send(result)
         })
 
