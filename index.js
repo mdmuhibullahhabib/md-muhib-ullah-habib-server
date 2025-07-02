@@ -29,6 +29,7 @@ async function run() {
         const messageCollection = client.db('md-muhib-ullah-habib').collection('message')
         const projectsCollection = client.db('md-muhib-ullah-habib').collection('projects')
         const techsCollection = client.db('md-muhib-ullah-habib').collection('techs')
+        const featuredCollection = client.db('md-muhib-ullah-habib').collection('featured')
 
 
         app.post('/message', async (req, res) => {
@@ -47,12 +48,17 @@ async function run() {
             res.send(result)
         })
 
-        app.delete('/message/:id', async (req, res) => {
-            const id = req.params.id
-            const query = { _id: new ObjectId(id) }
-            const result = await messageCollection.deleteOne(message)
+        app.get('/featured', async (req, res) => {
+            const result = await eaturedCollection.find().toArray()
             res.send(result)
         })
+
+        // app.delete('/message/:id', async (req, res) => {
+        //     const id = req.params.id
+        //     const query = { _id: new ObjectId(id) }
+        //     const result = await messageCollection.deleteOne(message)
+        //     res.send(result)
+        // })
 
 
         // Send a ping to confirm a successful connection
